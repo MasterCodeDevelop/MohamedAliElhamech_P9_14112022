@@ -16,29 +16,37 @@ export default class NewBill {
     new Logout({ document, localStorage, onNavigate })
   }
   handleChangeFile = e => {
-    e.preventDefault()
-    const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-    const filePath = e.target.value.split(/\\/g)
-    const fileName = filePath[filePath.length-1]
-    const formData = new FormData()
-    const email = JSON.parse(localStorage.getItem("user")).email
-    formData.append('file', file)
-    formData.append('email', email)
+    e.preventDefault();
+    const input = e.target,
+    colHalf = input.parentElement,
+    file = input.files[0],
+    filePath = input.value.split(/\\/g),
+    fileName = filePath[filePath.length-1],
+    formData = new FormData(),
+    regImage = /\.(png|jpe?g)$/gi,
+    email = JSON.parse(localStorage.getItem("user")).email;
+    formData.append('email', email);
 
-    this.store
-      .bills()
-      .create({
-        data: formData,
-        headers: {
-          noContentType: true
-        }
-      })
-      .then(({fileUrl, key}) => {
-        console.log(fileUrl)
-        this.billId = key
-        this.fileUrl = fileUrl
-        this.fileName = fileName
-      }).catch(error => console.error(error))
+    if (regImage.test(fileName)) {
+      formData.append('file', file);
+      colHalf.classList.remove("error");
+      this.store
+        .bills()
+        .create({
+          data: formData,
+          headers: {
+            noContentType: true
+          }
+        })
+        .then(({fileUrl, key}) => {
+          this.billId = key
+          this.fileUrl = fileUrl
+          this.fileName = fileName
+        }).catch(error => console.error(error))
+    } else {
+      colHalf.classList.add("error");
+      e.target.value = "";
+    }
   }
   handleSubmit = e => {
     e.preventDefault()
