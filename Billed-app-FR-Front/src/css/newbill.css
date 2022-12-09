@@ -21,7 +21,15 @@
   box-sizing: border-box;
   border-radius: 5px;
 }
-
+.col-half.error .blue-border {
+  border-color: red !important;
+}
+.error-message {
+  display: none;
+}
+.col-half.error .error-message {
+  display: block;
+}
 label {
   font-style: normal;
   font-weight: 500;
