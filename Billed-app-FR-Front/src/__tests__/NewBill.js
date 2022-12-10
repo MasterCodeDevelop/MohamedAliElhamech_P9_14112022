@@ -57,7 +57,7 @@ describe("Given I am connected as an employee", () => {
 		//########## CHEKING FIELDS ##########//
 		test("Then required fields have the 'Required' attribute'", () => {
 			expect(screen.getByTestId("expense-type")).toBeRequired();
-			expect(screen.getByTestId("expense-name")).not.toBeRequired();
+			expect(screen.getByTestId("expense-name")).toBeRequired();
 			expect(screen.getByTestId("datepicker")).toBeRequired();
 			expect(screen.getByTestId("amount")).toBeRequired();
 			expect(screen.getByTestId("vat")).not.toBeRequired();
