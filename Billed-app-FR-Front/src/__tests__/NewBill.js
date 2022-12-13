@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 //######## IMPORT ########//
 import "@testing-library/jest-dom";
 import { screen, waitFor, fireEvent } from "@testing-library/dom";
