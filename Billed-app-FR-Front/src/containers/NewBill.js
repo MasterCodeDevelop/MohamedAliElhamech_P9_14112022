@@ -50,9 +50,8 @@ export default class NewBill {
   }
   handleSubmit = e => {
     e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
-    const email = JSON.parse(localStorage.getItem("user")).email
-    const bill = {
+    const email = JSON.parse(localStorage.getItem("user")).email,
+    bill = {
       email,
       type: e.target.querySelector(`select[data-testid="expense-type"]`).value,
       name:  e.target.querySelector(`input[data-testid="expense-name"]`).value,
@@ -64,7 +63,7 @@ export default class NewBill {
       fileUrl: this.fileUrl,
       fileName: this.fileName,
       status: 'pending'
-    }
+    };
     this.updateBill(bill)
     this.onNavigate(ROUTES_PATH['Bills'])
   }
